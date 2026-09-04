@@ -1,0 +1,91 @@
+name: Deploy docs to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 0.사업전략/*.md 를 단일 원본으로 두고, 빌드 시점에만 사본을 만든다.
+      # (레포에 중복 파일을 두지 않으므로 원본-사이트 내용이 어긋날 수 없음)
+      - name: Assemble site source
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          cp -r site/. build/
+
+          add_page () {
+            src="$1"; out="$2"; title="$3"
+            if [ ! -f "$src" ]; then
+              echo "::error::원본 문서를 찾을 수 없습니다: $src"
+              exit 1
+            fi
+            {
+              printf -- '---\n'
+              printf 'layout: default\n'
+              printf 'title: "%s"\n' "$title"
+              printf -- '---\n\n'
+              cat "$src"
+            } > "build/$out"
+            echo "  + $src -> build/$out"
+          }
+
+          add_page "0.사업전략/01_사업계획방향.md"    "01-business-direction.md" "01. 사업계획 방향"
+          add_page "0.사업전략/02_벤치마킹_리서치.md"  "02-benchmarking.md"       "02. 벤치마킹 리서치"
+          add_page "0.사업전략/03_홈페이지_워크북.md"  "03-website-workbook.md"   "03. 홈페이지 워크북"
+
+          # 문서끼리 걸어둔 상대 링크(.md)를 배포 슬러그(.html)로 치환
+          sed -i \
+            -e 's|(01_사업계획방향\.md)|(01-business-direction.html)|g' \
+            -e 's|(02_벤치마킹_리서치\.md)|(02-benchmarking.html)|g' \
+            -e 's|(03_홈페이지_워크북\.md)|(03-website-workbook.html)|g' \
+            build/*.md
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./build
+          destination: ./_site
+
+      # noindex 가 실제로 박혔는지 빌드 단계에서 검증 — 누락 시 배포 중단
+      - name: Verify search-engine blocking
+        run: |
+          set -euo pipefail
+          fail=0
+          for f in _site/*.html; do
+            if ! grep -q 'name="robots"' "$f"; then
+              echo "::error::noindex 메타 누락: $f"; fail=1
+            fi
+          done
+          if ! grep -q 'Disallow: /' _site/robots.txt; then
+            echo "::error::robots.txt 차단 규칙 누락"; fail=1
+          fi
+          [ "$fail" -eq 0 ] && echo "OK: noindex + robots.txt 적용 확인"
+          exit "$fail"
+
+      - uses: actions/upload-pages-artifact@v3
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

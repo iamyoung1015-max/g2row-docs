@@ -1,0 +1,13 @@
+title: G2ROW 내부 문서
+description: 내부 열람용 작업 문서
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge
+
+# 검색엔진 차단 목적 — sitemap 생성/노출 안 함
+plugins: []
+exclude:
+  - README.md
