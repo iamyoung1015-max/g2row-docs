@@ -21,7 +21,6 @@
 
 <header class="topbar">
   <a class="brand" href="{{ '/' | relative_url }}">G2ROW 내부 문서</a>
-  <span class="badge">비공개 · 검색 차단</span>
   <button class="navtoggle" aria-label="메뉴" onclick="document.body.classList.toggle('navopen')">☰</button>
 </header>
 
@@ -35,7 +34,6 @@
       <li><a href="{{ '/02-benchmarking.html' | relative_url }}"{% if page.url contains '02-benchmarking' %} class="on"{% endif %}>02. 벤치마킹 리서치</a></li>
       <li><a href="{{ '/03-website-workbook.html' | relative_url }}"{% if page.url contains '03-website' %} class="on"{% endif %}>03. 홈페이지 워크북</a></li>
     </ul>
-    <p class="navnote">이 사이트는 검색엔진에 노출되지 않도록 설정돼 있습니다. 다만 <strong>링크를 아는 사람은 열람 가능</strong>합니다.</p>
   </nav>
 
   <main class="content" id="content">
