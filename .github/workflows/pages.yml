@@ -46,13 +46,11 @@ jobs:
 
           add_page "0.사업전략/01_사업계획방향.md"    "01-business-direction.md" "01. 사업계획 방향"
           add_page "0.사업전략/02_벤치마킹_리서치.md"  "02-benchmarking.md"       "02. 벤치마킹 리서치"
-          add_page "0.사업전략/03_홈페이지_워크북.md"  "03-website-workbook.md"   "03. 홈페이지 워크북"
 
           # 문서끼리 걸어둔 상대 링크(.md)를 배포 슬러그(.html)로 치환
           sed -i \
             -e 's|(01_사업계획방향\.md)|(01-business-direction.html)|g' \
             -e 's|(02_벤치마킹_리서치\.md)|(02-benchmarking.html)|g' \
-            -e 's|(03_홈페이지_워크북\.md)|(03-website-workbook.html)|g' \
             build/*.md
 
       - uses: actions/configure-pages@v5
