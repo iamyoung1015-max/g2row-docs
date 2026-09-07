@@ -48,6 +48,7 @@
 </footer>
 
 <script>
+{% unless page.toc == false %}
 // 목차 자동 생성 (h2 기준)
 (function () {
   var main = document.getElementById('content');
@@ -66,6 +67,7 @@
   if (first && first.nextSibling) main.insertBefore(box, first.nextSibling);
   else main.insertBefore(box, main.firstChild);
 })();
+{% endunless %}
 
 // 본문 안의 외부 링크는 새 창으로 (내부 문서 링크는 현재 창 유지)
 (function () {
