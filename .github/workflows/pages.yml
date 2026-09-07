@@ -47,6 +47,20 @@ jobs:
           add_page "0.사업전략/01_사업계획방향.md"    "01-business-direction.md" "01. 사업계획 방향"
           add_page "0.사업전략/02_벤치마킹_리서치.md"  "02-benchmarking.md"       "02. 벤치마킹 리서치"
 
+          # 02 문서의 'I. 종합 — G2ROW 갭 정리' 장을 개요(index)에 그대로 삽입.
+          # 02 를 단일 원본으로 두고 빌드 때만 복제하므로 두 페이지가 어긋날 수 없다.
+          awk '/^## I\./{f=1;print;next} f && /^## /{f=0} f' "0.사업전략/02_벤치마킹_리서치.md" > i-section.md
+          if [ ! -s i-section.md ]; then
+            echo "::error::02 문서에서 'I.' 장을 찾지 못했습니다 (개요에 삽입할 내용 없음)"
+            exit 1
+          fi
+          if ! grep -q '<!--I_SECTION-->' build/index.md; then
+            echo "::error::build/index.md 에 <!--I_SECTION--> 자리표시자가 없습니다"
+            exit 1
+          fi
+          sed -i -e '/<!--I_SECTION-->/r i-section.md' -e '/<!--I_SECTION-->/d' build/index.md
+          echo "  + 02 I장 -> build/index.md ($(wc -l < i-section.md)줄)"
+
           # 문서끼리 걸어둔 상대 링크(.md)를 배포 슬러그(.html)로 치환
           sed -i \
             -e 's|(01_사업계획방향\.md)|(01-business-direction.html)|g' \
