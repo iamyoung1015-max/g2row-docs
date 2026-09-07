@@ -66,6 +66,19 @@
   if (first && first.nextSibling) main.insertBefore(box, first.nextSibling);
   else main.insertBefore(box, main.firstChild);
 })();
+
+// 본문 안의 외부 링크는 새 창으로 (내부 문서 링크는 현재 창 유지)
+(function () {
+  var main = document.getElementById('content');
+  if (!main) return;
+  main.querySelectorAll('a[href]').forEach(function (a) {
+    if (a.hostname && a.hostname !== location.hostname) {
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+  });
+})();
+
 </script>
 
 </body>
