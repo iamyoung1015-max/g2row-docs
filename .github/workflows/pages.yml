@@ -46,6 +46,7 @@ jobs:
 
           add_page "0.사업전략/01_사업계획방향.md"    "01-business-direction.md" "01. 사업계획 방향"
           add_page "0.사업전략/02_벤치마킹.md"  "02-benchmarking.md"       "02. 벤치마킹"
+          add_page "0.사업전략/03_홈페이지워크북.md" "03-homepage-workbook.md" "03. 홈페이지 워크북"
 
           # 02 문서의 'I. 종합 — G2ROW 갭 정리' 장을 개요(index)에 그대로 삽입.
           # 02 를 단일 원본으로 두고 빌드 때만 복제하므로 두 페이지가 어긋날 수 없다.
