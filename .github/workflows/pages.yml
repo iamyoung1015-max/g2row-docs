@@ -80,11 +80,12 @@ jobs:
         run: |
           set -euo pipefail
           fail=0
-          for f in _site/*.html; do
+          # 하위 폴더(landing/ 등)까지 전부 검사
+          while IFS= read -r f; do
             if ! grep -q 'name="robots"' "$f"; then
               echo "::error::noindex 메타 누락: $f"; fail=1
             fi
-          done
+          done < <(find _site -name '*.html' -type f)
           if ! grep -q 'Disallow: /' _site/robots.txt; then
             echo "::error::robots.txt 차단 규칙 누락"; fail=1
           fi
