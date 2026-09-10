@@ -1,55 +1,23 @@
+<?php
+/**
+ * G2ROW 랜딩 페이지
+ * ------------------------------------------------------------------
+ *   includes/  head · header · footer · scripts
+ *   assets/    css/style.css · js/main.js · img/
+ * 본문 섹션은 아래 <main> 안에 순서대로 들어 있다.
+ */
+$PAGE_TITLE = 'G2ROW — 엑셀 쓸 줄 아시면, AI로 프로그램을 만들 수 있습니다';
+?>
 <!doctype html>
 <html lang="ko">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- ===== 검색엔진 차단 (site/_layouts/default.html 과 동일 정책) ===== -->
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
-<meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-<meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet">
-<meta name="referrer" content="no-referrer">
-<!-- ============================================================ -->
-<title>G2ROW — 엑셀 쓸 줄 아시면, AI로 프로그램을 만들 수 있습니다</title>
-
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<!-- 본문 폰트 Pretendard (라이브 사이트와 동일 · jsDelivr 동적 서브셋) -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-<!-- Pretendard 로드 실패 시 폴백 (style.css 의 --font) -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap">
-
-<!-- 아이콘 글리프 (.msym) -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0">
-
-<link rel="stylesheet" href="assets/css/style.css">
+<?php include __DIR__ . '/includes/head.php'; ?>
 </head>
 <body class="vb">
 
 <a class="skip" href="#main">본문 바로가기</a>
 
-<!-- ============================ 헤더 ============================ -->
-<header class="site-header">
-  <div class="container header-inner">
-    <a href="#top" class="logo"><img src="assets/img/logo.png" alt="G2ROW"></a>
-    <div class="nav-wrap" id="nav">
-      <nav class="nav">
-        <a href="#setup">개발키트</a>
-        <a href="#edu">교육</a>
-        <a href="#instructor">강사</a>
-        <a href="#stats-row">레퍼런스</a>
-        <a href="#results">프로젝트 사례</a>
-        <a href="#faq">FAQ</a>
-      </nav>
-      <div class="nav-actions">
-        <a href="#contact" class="btn btn-primary btn-sm">전문 상담 신청하기</a>
-      </div>
-    </div>
-    <button class="nav-toggle" aria-label="메뉴 열기"><span class="msym">menu</span></button>
-  </div>
-</header>
+<?php include __DIR__ . '/includes/header.php'; ?>
 
 <main id="main">
 
@@ -517,7 +485,7 @@
 
           <div class="consent">
             <input id="f-agree" type="checkbox" name="agree" required>
-            <label for="f-agree"><span class="req">[필수]</span> <a href="privacy.html" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의합니다.</label>
+            <label for="f-agree"><span class="req">[필수]</span> <a href="privacy.php" target="_blank" rel="noopener">개인정보 수집·이용</a>에 동의합니다.</label>
           </div>
 
           <button class="btn btn-primary btn-block btn-lg" type="submit" style="margin-top:18px">상담 신청하기</button>
@@ -530,34 +498,9 @@
 
 </main>
 
-<!-- ============================ 푸터 ============================ -->
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-top">
-      <div class="logo"><img src="assets/img/logo.png" alt="G2ROW"></div>
-      <nav class="footer-links">
-        <a href="privacy.html" target="_blank" rel="noopener">개인정보처리방침</a>
-        <a href="terms.html" target="_blank" rel="noopener">이용약관</a>
-      </nav>
-    </div>
-    <div class="footer-body">
-      <div class="footer-info">
-        <p><strong>(주)팩앤롤</strong> &nbsp;|&nbsp; 사업자등록번호 617-86-14723 &nbsp;|&nbsp; 대표이사 김은미</p>
-        <p>통신판매업신고 제2014-부산남구-52호 &nbsp;|&nbsp; 부산광역시 남구 수영로 60, 3층</p>
-        <p>대표번호 1855-0313 &nbsp;|&nbsp; g2rowkr@gmail.com</p>
-        <p class="copyright">© 2026 (주)팩앤롤. All rights reserved.</p>
-      </div>
-      <div class="footer-social">
-        <span class="soc" title="쓰레드 (URL 미정)"><img src="assets/img/icon-threads-.png" alt="쓰레드"></span>
-        <span class="soc" title="블로그 (URL 미정)"><img src="assets/img/icon-blog.png" alt="블로그"></span>
-        <span class="soc" title="페이스북 (URL 미정)"><img src="assets/img/icon-facebook.png" alt="페이스북"></span>
-        <span class="soc" title="유튜브 (URL 미정)"><img src="assets/img/icon-youtube.png" alt="유튜브"></span>
-      </div>
-    </div>
-  </div>
-</footer>
+<?php include __DIR__ . '/includes/footer.php'; ?>
 
-<script src="assets/js/main.js"></script>
+<?php include __DIR__ . '/includes/scripts.php'; ?>
 
 </body>
 </html>
